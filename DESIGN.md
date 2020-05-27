@@ -113,7 +113,7 @@ Puzzle: a 9x9 integer array.
  
 *Unit testing*.  A small test program in `testing.sh` to test each module to make sure it does what it's supposed to do.
  
-*Integration testing*.  Assemble the crawler and test it as a whole using `testing.sh`.
+*Integration testing*.  Test the capacity of  `testing.sh`.
 In each case, examine the output files carefully to be sure they have the contents of the correct page, with the correct URL, and the correct depth.
 Ensure that no pages are missing or duplicated.
 Print "progress" indicators from the crawler as it proceeds (e.g., print each URL explored, and each URL found in the pages it explores) so you can watch its progress as it runs.
