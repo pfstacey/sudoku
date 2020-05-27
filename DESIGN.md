@@ -2,7 +2,7 @@
 layout: page
 title: Sudoku Design Spec
 Authors: Sarah Korb, Matt Keating, Marlee Montella, Piper Stacey
-Date: May 25 - June 3, 2020
+Dates: May 25 - June 3, 2020
 ---
  
 Recall the [Sudoku Requirements Spec](REQUIREMENTS.html); the **create** creates and solves a sudoku puzzle.
