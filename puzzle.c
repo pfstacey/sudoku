@@ -23,7 +23,7 @@ typedef struct puzzle{
 
 /**************** puzzle_new ****************/
 puzzle_t *puzzle_new(){
-    puzzle_t * p = calloc(1, sizeof(puzzle_t*));
+    puzzle_t *p = (puzzle_t *)malloc(9*9*sizeof(puzzle_t*));
     if(p != NULL){
         // fill grid with all zeroes
         for(int i = 0; i < 9; i++) {
