@@ -23,11 +23,11 @@ typedef struct puzzle{
 
 /**************** puzzle_new ****************/
 puzzle_t *puzzle_new(){
-    puzzle_t *p = (puzzle_t *)malloc(9*9*sizeof(puzzle_t*));
+    puzzle_t * p = (puzzle_t *)malloc(9*9*sizeof(puzzle_t*));
     if(p != NULL){
         // fill grid with all zeroes
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
                 (p->grid)[i][j] = 0;
             }
         }
@@ -104,7 +104,7 @@ int * puzzle_getRow(puzzle_t * p, const int r){
 int * puzzle_getCol(puzzle_t * p, const int col){
     if(p != NULL){
         if(col >= 0 && col < 9){
-            int column[9];
+            int * column = calloc(9, sizeof(int));
             for(int i = 0; i < 9; i++){
                  column[i] = (p->grid)[i][col];
             }
