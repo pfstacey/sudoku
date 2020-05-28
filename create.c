@@ -18,8 +18,8 @@
 void build_puzzle(puzzle_t *puzzle)
 {
     int num;
-    int row[9];
-    int column[9];
+    int *row;
+    int *column;
     for (int i = 0; i < 9; i ++){ // iterate over rows
         for (int j = 0; j < 9; j++){ // iterate over columns
             num = rand_num();
