@@ -17,18 +17,18 @@
 /**************** create_puzzle() ****************/
 void build_puzzle(puzzle_t *puzzle)
 {
-    int num ;
-    // int nope[9];
-    // int num;
-    // printf("hi\n");
-    // srand ( time(NULL) );
-    for (int i = 0; i < 9; i ++){
-        for (int j = 0; j < 9; j++){
+    int num;
+    int *row;
+    int *column;
+    for (int i = 0; i < 9; i ++){ // iterate over rows
+        for (int j = 0; j < 9; j++){ // iterate over columns
             num = rand_num();
+            row = puzzle_getRow(puzzle,i);
+            column = puzzle_getCol(puzzle,j);
+            
             puzzle_set(puzzle,i,j,num);
         }
     }
-    // return puzzle;
 }
 
 void rand_init(void){
@@ -40,7 +40,7 @@ int rand_num(void){
     long x;
     long y;
 
-    x = rand() % 9;
-    y = (int) x;
+    x = rand() % 9; // random number 0-8
+    y = (int) x + 1; // integer 1-9
     return y;
 }

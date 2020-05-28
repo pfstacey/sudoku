@@ -25,9 +25,9 @@ int main(int argc, char *argv[])
             }
             else{
                 rand_init();
-                printf("%d\n",rand_num());
-                // build_puzzle(puzzle);
-                // puzzle_write(puzzle);
+                build_puzzle(puzzle);
+                puzzle_write(puzzle);
+                puzzle_delete(puzzle);
             }
         }
 
