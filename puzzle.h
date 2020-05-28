@@ -82,6 +82,26 @@ int * puzzle_getRow(puzzle_t * p, const int row);
  */
 int * puzzle_getCol(puzzle_t * p, const int col);
 
+/**************** puzzle_getMiniGrid ****************/
+/* Returns an array of the values in the mini grid
+ *
+ * Caller provides:
+ *   valid pointer to puzzle, int which minigrid they want
+ * We return:
+ *   NULL if the minigrid doesn't exist in the puzzle
+ *   the values associated with the minigrid if it exists
+ * Notes:
+ *   does not remove the minigrid from the puzzle, just returns it 
+| ----- | ----- | ----- |
+|   0   |   1   |   2   |
+| ----- | ----- | ----- |
+|   3   |   4   |   5   | 
+| ----- | ----- | ----- |
+|   6   |   7   |   8   | 
+| ----- | ----- | ----- |
+ */
+int * puzzle_getMiniGrid(puzzle_t * p, const int row, const int col);
+
 /**************** puzzle_write ****************/
 /* writes the whole puzzle into the stdin
  * 
