@@ -120,6 +120,133 @@ int * puzzle_getCol(puzzle_t * p, const int col){
         return NULL;
     }
 }
+/**************** puzzle_getMiniGrid ****************/
+/*
+| ----- | ----- | ----- |
+|   0   |   1   |   2   |
+| ----- | ----- | ----- |
+|   3   |   4   |   5   | 
+| ----- | ----- | ----- |
+|   6   |   7   |   8   | 
+| ----- | ----- | ----- |
+ */
+int * puzzle_getMiniGrid(puzzle_t * p, const int row, const int col){
+    if(p != NULL){
+        int * mini = malloc((sizeof(int))*9);
+        if(mini != NULL){
+            if( row < 3 && row >= 0 ){
+                //minigrid 0, 1, or 2
+                if(col < 3 && col > 0){
+                    //minigrid 0
+                    int index = 0; 
+                    for(int i = 0; i < 3; i++){
+                        for(int j = 0; j < 3; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+                else if (col < 6 && col >= 3){
+                    //minigrid 1
+                    int index = 0;
+                    for(int i = 0; i < 3; i++){
+                        for(int j = 3; j < 6; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+                else if (col < 9 && col >= 6){
+                    //minigrid 1
+                    int index = 0;
+                    for(int i = 0; i < 3; i++){
+                        for(int j = 6; j < 9; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+            }
+
+            else if( row < 6 && row >= 3 ){
+                //minigrid 0, 1, or 2
+                if(col < 3 && col > 0){
+                    //minigrid 3
+                    int index = 0; 
+                    for(int i = 3; i < 6; i++){
+                        for(int j = 0; j < 3; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+                else if (col < 6 && col >= 3){
+                    //minigrid 4
+                    int index = 0;
+                    for(int i = 3; i < 6; i++){
+                        for(int j = 3; j < 6; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+                else if (col < 9 && col >= 6){
+                    //minigrid 5
+                    int index = 0;
+                    for(int i = 3; i < 6; i++){
+                        for(int j = 6; j < 9; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+            }
+
+            else if( row < 9 && row >= 6 ){
+                //minigrid 0, 1, or 2
+                if(col < 3 && col > 0){
+                    //minigrid 6
+                    int index = 0; 
+                    for(int i = 6; i < 9; i++){
+                        for(int j = 0; j < 3; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+                else if (col < 6 && col >= 3){
+                    //minigrid 7
+                    int index = 0;
+                    for(int i = 6; i < 9; i++){
+                        for(int j = 3; j < 6; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+                else if (col < 9 && col >= 6){
+                    //minigrid 8
+                    int index = 0;
+                    for(int i = 6; i < 9; i++){
+                        for(int j = 6; j < 9; j++){
+                            mini[index] = (p->grid)[i][j];
+                            index++; 
+                        }
+                    }
+                }
+            }
+            return mini;
+        }
+        else{
+            printf("[puzzle_getMiniGrid] error: null mini array\n");
+            return NULL;
+        }
+    }
+    else{
+        printf("[puzzle_getMiniGrid] error: null puzzle\n");
+        return NULL;
+    }
+}
 
 /**************** puzzle_write ****************/
 void puzzle_write(puzzle_t *p){
