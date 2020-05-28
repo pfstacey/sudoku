@@ -8,7 +8,7 @@
  * Teammates: Matt Keating, Sarah Korb, Marlee Montella
  */
 
- #ifndef __PUZZLE_H
+#ifndef __PUZZLE_H
 #define __PUZZLE_H
 
 #include <stdio.h>
