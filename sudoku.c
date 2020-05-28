@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
             else{
                 rand_init();
                 build_puzzle(puzzle);
+                printf("\nfinal board:\n");
                 puzzle_write(puzzle);
                 puzzle_delete(puzzle);
             }

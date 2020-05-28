@@ -27,6 +27,4 @@ void build_puzzle(puzzle_t *puzzle);
 
 void rand_init(void);
 
-int rand_num(void);
-
 #endif
