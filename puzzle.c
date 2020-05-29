@@ -18,20 +18,36 @@
 
 /**************** global types ****************/
 typedef struct puzzle{
-    int grid[9][9];
+    int ** grid;
 }puzzle_t;
 
 /**************** puzzle_new ****************/
 puzzle_t *puzzle_new(){
-    puzzle_t * p = (puzzle_t *)malloc(9*9*sizeof(puzzle_t*));
+    puzzle_t * p = (puzzle_t *)malloc(sizeof(puzzle_t*));
     if(p != NULL){
-        // fill grid with all zeroes
-        for(int i = 0; i < 9; i++){
-            for(int j = 0; j < 9; j++){
-                (p->grid)[i][j] = 0;
+        // allocate space for the grid
+        (p->grid) = (int **)malloc(9 * sizeof(int *));
+        // allocate space for each array
+        if((p->grid) != NULL){
+            for(int i = 0; i < 9; i++){
+                (p -> grid)[i] = (int *)malloc(9 * sizeof(int));
+                if((p -> grid)[i] == NULL){
+                    printf("[puzzle_new] error: unable to allocate internal array\n");
+                    return NULL;
+                }
             }
+            // fill grid with all zeroes
+            for(int i = 0; i < 9; i++){
+                for(int j = 0; j < 9; j++){
+                    (p->grid)[i][j] = 0;
+                }
+            }
+            return p;
         }
-        return p;
+        else{
+            printf("[puzzle_new] error: null grid\n");
+            return NULL;
+        }
     }
     else return NULL;
 }
@@ -87,7 +103,17 @@ const int puzzle_getValue(puzzle_t * p, const int row, const int col){
 int * puzzle_getRow(puzzle_t * p, const int r){
     if(p != NULL){
         if(r >= 0 && r < 9){
-            return (p->grid)[r];
+            int * row = calloc(9, sizeof(int));
+            if(row != NULL){
+                for(int i = 0; i < 9; i++){
+                    row[i] = (p->grid)[r][i];
+                }
+                return row;
+            }
+            else{
+                printf("[puzzle_getRow] error: trouble allocating column space\n");
+                return NULL;
+            }
         }
         else{
             printf("[puzzle_getRow] error: invalid row\n");
@@ -105,10 +131,16 @@ int * puzzle_getCol(puzzle_t * p, const int col){
     if(p != NULL){
         if(col >= 0 && col < 9){
             int * column = calloc(9, sizeof(int));
-            for(int i = 0; i < 9; i++){
-                 column[i] = (p->grid)[i][col];
+            if(column != NULL){
+                for(int i = 0; i < 9; i++){
+                    column[i] = (p->grid)[i][col];
+                }
+                return column;
             }
-            return column;
+            else{
+                printf("[puzzle_getCol] error: trouble allocating column space\n");
+                return NULL;
+            }
         }
         else{
             printf("[puzzle_getCol] error: invalid row\n");
@@ -266,6 +298,10 @@ void puzzle_write(puzzle_t *p){
 /**************** puzzle_delete ****************/
 void puzzle_delete(puzzle_t *p){
     if(p != NULL){
+        for(int i = 0; i < 9; i++){
+            free((p->grid)[i]);
+        }
+        free((p->grid));
         free(p);
     }
 }
