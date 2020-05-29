@@ -32,20 +32,20 @@ For example:
 $ ./sudoku create
 $ cat board | ./sudoku solve
 ```
-Note: The file *board* is the output of the sudoku creator. It will be formatted as 9 lines of test, each with 9 numbers separated by white space. Blank spaces will be represented by a 0. 
+Note: The file *board* is the output of the sudoku creator. It will be formatted as 9 lines of text, each with 9 numbers separated by white space. Blank spaces will be represented by a 0. 
  
 ### Inputs and outputs
  
 #### create
 Input: the only inputs are command-line parameters; see the User Interface above.
  
-Output: We output an unsolved sudoku board in the form of a 9x9 number array with at least 40 0’s indicating the empty spaces
+Output: We output an unsolved sudoku board in the form of a 9x9 number array with at least 40 0’s indicating the empty spaces. This is on the form of a readable file called 'board' as described above.
  
 #### solve 
  
-Input: 
+Input: We pipeline the sudoku board created in `create` into `./sudoku solve`
  
-Output: We output the solved 9x9 sudoku array. The solution is unique. 
+Output: We output the solved 9x9 sudoku array with graphics
  
  
 ### Functional decomposition into modules
@@ -59,44 +59,23 @@ We anticipate the following modules or functions:
 4. *check_solution*, which verifies that a puzzle is a valid sudoku solution.
  
 ### Pseudo code for logic/algorithmic flow
+
+#### create.c
+
+The `./sudoku create` commant will run as follows:
+
+1. Take an empty sudoku puzzle created by the `puzzle.c` module. This will be a 9X9 array of all 0's.
+2. For each row
+    3. For each column in each row 
+    4. generate a random number, and set this space to this number
+
+#### solve.c 
  
-The crawler will run as follows:
- 
-1. execute from a command line as shown in the User Interface
-2. parse the command line, validate parameters, initialize other modules
-3. make a *webpage* for the `seedURL`, marked with depth=0
-4. add that page to the *bag* of webpages to crawl
-5. add that URL to the *hashtable* of URLs seen
-3. while there are more webpages to crawl,
-   5. extract a webpage (URL,depth) item from the *bag* of webpages to be crawled,
-   4. pause for at least one second,
-   6. use *pagefetcher* to retrieve a webpage for that URL,
-   5. use *pagesaver* to write the webpage to the `pageDirectory` with a unique document ID, as described in the Requirements.
-   6. if the webpage depth is < `maxDepth`, explore the webpage to find links:
-       7. use *pagescanner* to parse the webpage to extract all its embedded URLs;
-       7. for each extracted URL,
-           8. 'normalize' the URL (see below)
-           9. if that URL is not 'internal' (see below), ignore it;
-           9. try to insert that URL into the *hashtable* of URLs seen
-               10. if it was already in the table, do nothing;
-               11. if it was added to the table,
-                   12. make a new *webpage* for that URL, at depth+1
-                   13. add the new webpage to the *bag* of webpages to be crawled
- 
-**normalize the URL** means to convert it into a clean, canonical form.
- 
-**internal** means the URL stays within the CS50 playground http://old-www.cs.dartmouth.edu/.
- 
-A good implementation will not necessarily encode all the above code in a single, deeply-nested function; part of the Implementation Spec is to break the pseudocode down into a cleanly arranged set of functions.
- 
-Notice that our pseudocode says nothing about the order in which it crawls webpages; since it presumably pulls them out of a *bag*, and a *bag* abstract data structure explicitly denies any promise about the order of items removed from a bag, we can't expect any particular crawl order.
-That's ok.
-The result may or may not be a Breadth-First Search, but for the crawler we don't care about the order as long as we explore everything within the `maxDepth` neighborhood.
- 
-The crawler completes and exits when it has nothing left in its bag - no more pages to be crawled.
-The maxDepth parameter indirectly determines the number of pages that the crawler will retrieve.
- 
- 
+The `./sudoku solve` commant will run as follows:
+ns to convert it into a clean, canonical form.
+
+.... ADD TO LATER
+
 ### Dataflow through modules
  
 1. *main* parses parameters and passes them to either the solve or create.
@@ -111,34 +90,11 @@ Puzzle: a 9x9 integer array.
  
 ### Testing plan
  
-*Unit testing*.  A small test program in `testing.sh` to test each module to make sure it does what it's supposed to do.
- 
-*Integration testing*.  Test the capacity of  `testing.sh`.
-In each case, examine the output files carefully to be sure they have the contents of the correct page, with the correct URL, and the correct depth.
-Ensure that no pages are missing or duplicated.
-Print "progress" indicators from the crawler as it proceeds (e.g., print each URL explored, and each URL found in the pages it explores) so you can watch its progress as it runs.
- 
-0. Test the program with various forms of incorrect command-line arguments to ensure that its command-line parsing, and validation of those parameters, works correctly.
- 
-0. Test the crawler with a `seedURL` that points to a non-existent server.
- 
-0. Test the crawler with a `seedURL` that points to a non-internal server.
- 
-0. Test the crawler with a `seedURL` that points to a valid server but non-existent page.
- 
-1. Crawl a simple, closed set of cross-linked web pages to crawl.
-Ensure that some page(s) are mentioned multiple times within a page, and multiple times across the set of pages.
-Ensure there is a loop (a cycle in the graph of pages).
-In such a little site, you know exactly what set of pages should be crawled, at what depths, and you know where your program might trip up.
- 
-2. Point the crawler at a page in that site, and explore at depths 0, 1, 2, 3, 4, 5.
-Verify that the files created match expectations.
- 
-2. Repeat with a different seed page in that same site.
-If the site is indeed a graph, with cycles, there should be several interesting starting points.
- 
-3. Point the crawler at our Wikipedia playground.
-Explore at depths 0, 1, 2.
-(It takes a long time to run at depth 2 or higher!) Verify that the files created match expectations.
- 
-5. When you are confident that your crawler runs well, test it on a part of our playground or with a greater depth - but be ready to kill it if it seems to be running amok.
+*Unit testing*. Small program `puzzletest.c` focuses on testing the get() and set() methods in the puzzle moduele. Uses functions in puzzle module to create and set a 9X9 sudoku puzzle. Then uses functions in the puzzle module to print a selected 'minigrid' (or 3x3 portion of the puzzle), row 0 of the puzzle and column 0 of the puzzle. 
+
+*Integration testing*.  Use a bash script `testing.sh` to test the capacitiy of the `./sudoku` program when creating and solving puzzles.
+
+1. Testing incorrect command line parameters to `./sudoku`
+
+2. Create a puzzle with `./sudoku create` and pipeline the output to `./sudoku solve` to solve for a unique solution.
+

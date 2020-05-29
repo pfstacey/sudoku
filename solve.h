@@ -1,3 +1,7 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include "puzzle.h"
+
 /*
  * boolean method that returns true if an integer val is contained in array arr
  */
