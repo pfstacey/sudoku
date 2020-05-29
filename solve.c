@@ -24,7 +24,7 @@ bool contains(int * arr, int val){
         return false;
 }
 
-bool is_valid(puzzle_t *puzzle, int row, int column, int puzzleVal){
+bool valid_puzzle(puzzle_t *puzzle, int row, int column, int puzzleVal){
         int * row = puzzle_getRow(puzzle, row);
         int * col = puzzle_getCol(puzzle, column);
         int * sub = puzzle_getMiniGrid(puzzle, row, column);
@@ -64,11 +64,11 @@ bool backtrack(puzzle_t *puzzle, int row, int column){
                         puzzle_set(puzzle, row, column, puzzleVal);
 
                         //recursive step
-                        if(solve(puzzle, row + 1, column)){
+                        if(backtrack(puzzle, row + 1, column)){
                                 return true;
                         }
                         else{
-                                puzzle[row][column] = 0;
+				puzzle_set(puzzle, row, column, 0);
                         }
                 }
                 puzzleVal++;
