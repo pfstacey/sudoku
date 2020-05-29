@@ -96,5 +96,5 @@ Puzzle: a 9x9 integer array.
 
 1. Testing incorrect command line parameters to `./sudoku`
 
-2. Create a puzzle with `./sudoku create` and pipeline the output to `./sudoku solve` to sokve for a unique solution.
+2. Create a puzzle with `./sudoku create` and pipeline the output to `./sudoku solve` to solve for a unique solution.
 
