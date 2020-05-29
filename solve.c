@@ -15,7 +15,7 @@
  * boolean method that returns true if an integer val is contained in array arr
  */
 bool contains(int * arr, int val){
-        for(int i = 0; i < sizeof(arr)/sizeof(int); i++){
+        for(int i = 0; i < 9; i++){
                 if(arr[i] == val){
                         return true;
                 }
@@ -24,10 +24,10 @@ bool contains(int * arr, int val){
         return false;
 }
 
-bool valid_puzzle(puzzle_t *puzzle, int row, int column, int puzzleVal){
-        int * row = puzzle_getRow(puzzle, row);
-        int * col = puzzle_getCol(puzzle, column);
-        int * sub = puzzle_getMiniGrid(puzzle, row, column);
+bool valid_puzzle(puzzle_t *puzzle, int r, int c, int puzzleVal){
+        int * row = puzzle_getRow(puzzle, r);
+        int * col = puzzle_getCol(puzzle, c);
+        int * sub = puzzle_getMiniGrid(puzzle, r, c);
 
         if(contains(row, puzzleVal) || contains(col, puzzleVal) || contains(sub, puzzleVal)){
                 return false;
