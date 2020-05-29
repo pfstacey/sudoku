@@ -13,10 +13,6 @@
 
 ##### THESE TESTS SHOULD WORK ######
 
-# Unit test the puzzle module 
-
-./puzzletest
-
 # Create a puzzle
 
 ./sudoku create 
