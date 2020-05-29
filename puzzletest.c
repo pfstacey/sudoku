@@ -1,3 +1,7 @@
+//Unit Testing for puzzle.c module 
+//Author: Piper Stacey
+//Teammates: Matt Keating, Sarah Korb, Marlee Montella
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "puzzle.h"
