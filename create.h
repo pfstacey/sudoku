@@ -28,4 +28,9 @@ bool build_puzzle(puzzle_t *puzzle);
 
 void rand_init(void);
 
+void fill_miniGrid(puzzle_t *p, int row, int column);
+bool check_array(int checked[], int num, int pos);
+bool valid_num(int num, int r, int c, puzzle_t *p);
+bool fill_others(puzzle_t *p, int row, int column);
+
 #endif
