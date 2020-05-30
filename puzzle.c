@@ -331,18 +331,14 @@ void puzzle_delete(puzzle_t *p){
         free(p);
     }
 }
-<<<<<<< HEAD
-
 /**************** puzzle_load ****************/
 puzzle_t *puzzle_load(){
     puzzle_t *p = puzzle_new();
     int i = 0;
     for(i = 0; i < 9; i++){
-        fscanf(stdout, "%d %d %d %d %d %d %d %d %d", &(p->grid)[i][0], &(p->grid)[i][1], 
+        fscanf(stdin, "%d %d %d %d %d %d %d %d %d", &(p->grid)[i][0], &(p->grid)[i][1], 
         &(p->grid)[i][2], &(p->grid)[i][3], &(p->grid)[i][4], &(p->grid)[i][5], 
         &(p->grid)[i][6], &(p->grid)[i][7], &(p->grid)[i][8]);
     }
     return p;
 }
-=======
->>>>>>> d68e0c10a6a94dfd08db3c33c0f09666ac1c690b
