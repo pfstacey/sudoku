@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "puzzle.h"
+
 /**************** create_puzzle() ****************/
 /* 
  *
@@ -23,7 +24,7 @@
  * 
  * 
  */
-void build_puzzle(puzzle_t *puzzle);
+bool build_puzzle(puzzle_t *puzzle);
 
 void rand_init(void);
 
