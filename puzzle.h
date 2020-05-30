@@ -128,4 +128,19 @@ void puzzle_write(puzzle_t *p);
  */
 void puzzle_delete(puzzle_t *p);
 
+/**************** puzzle_loas ****************/
+/*load puzzle from standard input
+*
+*Caller provides:
+*
+*We do:
+*Create a new, empty puzzle
+*Read Standard Input and load the displayed values into puzzle structure
+*Return filled puzzle
+*Note:
+*   The puzzle is expected to be displayed (via 'cat') in the stdin 
+*   
+*/
+puzzle_t *puzzle_load();
+
 #endif

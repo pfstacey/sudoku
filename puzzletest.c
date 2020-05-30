@@ -7,6 +7,7 @@
 #include "puzzle.h"
 int main(void){
     puzzle_t * piper = puzzle_new();
+    puzzle_t * piper2;
     puzzle_set(piper, 0, 0, 1);
     puzzle_set(piper, 1, 1, 2);
     puzzle_set(piper, 2, 2, 3);
@@ -20,6 +21,12 @@ int main(void){
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     puzzle_write(piper);
+    piper2 = puzzle_load();
+
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+    printf("Loading puzzle from stdin\n");
+    puzzle_write(piper2); //Should be the same puzzle!
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
