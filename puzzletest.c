@@ -60,6 +60,7 @@ int main(void){
 
     free(array);
     puzzle_delete(piper);
+    puzzle_delete(piper2);
     return 0;
 }
 

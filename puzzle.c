@@ -295,6 +295,32 @@ void puzzle_write(puzzle_t *p){
     }
 }
 
+/**************** puzzle_load ****************/
+puzzle_t *puzzle_load(){
+    puzzle_t *p = puzzle_new();
+    if(p != NULL){
+        int i = 0;
+        while(fscanf(stdin, "%d %d %d %d %d %d %d %d %d", 
+            &(p->grid)[i][0], 
+            &(p->grid)[i][1], 
+            &(p->grid)[i][2], 
+            &(p->grid)[i][3], 
+            &(p->grid)[i][4], 
+            &(p->grid)[i][5], 
+            &(p->grid)[i][6], 
+            &(p->grid)[i][7], 
+            &(p->grid)[i][8]) == 9){
+                i += 1; 
+        }
+        return p;
+    }
+    else{
+        printf("[puzzle_load] error: trouble making new puzzle\n");
+        return NULL;
+    }
+}
+
+
 /**************** puzzle_delete ****************/
 void puzzle_delete(puzzle_t *p){
     if(p != NULL){
@@ -305,6 +331,7 @@ void puzzle_delete(puzzle_t *p){
         free(p);
     }
 }
+<<<<<<< HEAD
 
 /**************** puzzle_load ****************/
 puzzle_t *puzzle_load(){
@@ -317,3 +344,5 @@ puzzle_t *puzzle_load(){
     }
     return p;
 }
+=======
+>>>>>>> d68e0c10a6a94dfd08db3c33c0f09666ac1c690b
