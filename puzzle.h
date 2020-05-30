@@ -115,20 +115,7 @@ int * puzzle_getMiniGrid(puzzle_t * p, const int row, const int col);
  */
 void puzzle_write(puzzle_t *p);
 
-/**************** puzzle_delete ****************/
-/* Delete puzzle
- *
- * Caller provides:
- *   valid index puzzle
- * We do:
- *   if puzzle==NULL, do nothing.
- *   otherwise, free the puzzle itself.
- * Notes:
- *   (the ints within the puzzle don't need to freed)
- */
-void puzzle_delete(puzzle_t *p);
-
-/**************** puzzle_loas ****************/
+/**************** puzzle_load ****************/
 /*load puzzle from standard input
 *
 *Caller provides:
@@ -142,5 +129,18 @@ void puzzle_delete(puzzle_t *p);
 *   
 */
 puzzle_t *puzzle_load();
+
+/**************** puzzle_delete ****************/
+/* Delete puzzle
+ *
+ * Caller provides:
+ *   valid index puzzle
+ * We do:
+ *   if puzzle==NULL, do nothing.
+ *   otherwise, free the puzzle itself.
+ * Notes:
+ *   (the ints within the puzzle don't need to freed)
+ */
+void puzzle_delete(puzzle_t *p);
 
 #endif
