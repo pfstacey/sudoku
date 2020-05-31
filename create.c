@@ -34,7 +34,9 @@ bool build_puzzle(puzzle_t *puzzle)
     for (int i = 0; i < 3; i++){
         fill_miniGrid(puzzle,i*3,i*3);
     }
-    if(fill_others(puzzle,0,3)) return true;
+    if(fill_others(puzzle,0,3)) {
+        return true;
+    }
     else return false;
 }
 
@@ -148,3 +150,17 @@ bool fill_others(puzzle_t *p, int r, int c)
     }
     return false;
 } 
+
+/*************remove_values************/
+
+void remove_values(puzzle_t *p, int count){
+    while(count != 0){
+        int r = rand()%9;
+        int c = rand()%9;
+        if(puzzle_getValue(p,r,c) != 0){
+            puzzle_set(p, r, c, 0);
+            count --;
+        }
+
+    }
+}

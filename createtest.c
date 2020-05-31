@@ -41,7 +41,7 @@ int main(){
     printf("Filling others\n");
     fill_others(test, 0,3);
     puzzle_write(test);
-        printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     printf("Test valid_num using arbitrary integer: 1\n");
     printf("checking for 1 in column 0, row 0\n");
@@ -50,8 +50,13 @@ int main(){
     }else{
           printf("1 found in column 0/row 0/in the first minigrid. Not a valid number\n");
     }
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Removing values: Should leave 40 spaces open\n");
+    remove_values(test, 40);
+    puzzle_write(test);
     
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Using build_puzzle to generate new,sudoku board\n");
     puzzle_t *test2 = puzzle_new();
     build_puzzle(test2);
     puzzle_write(test2);

@@ -77,3 +77,42 @@ bool backtrack(puzzle_t *puzzle, int row, int column){
         //executed ONLY if puzzle is UNSOLVABLE
         return false;
 } 
+
+
+bool backtrack_optimized(puzzle_t *puzzle, int row, int column){
+
+        //base case
+        if(row == 9){
+                row = 0;
+                column ++;
+        }
+
+        if(column == 9){
+                return true;
+        }
+
+        //case for if the row and column already has a value from the given puzzle
+        if(puzzle_getValue(puzzle, row, column) != 0){
+                return backtrack(puzzle, row + 1, column);
+        }
+
+        int puzzleVal = 1;
+
+        while(puzzleVal < 10){
+                if(valid_puzzle(puzzle, row, column, puzzleVal)){
+                        puzzle_set(puzzle, row, column, puzzleVal);
+
+                        //recursive step
+                        if(backtrack(puzzle, row + 1, column)){
+                                return true;
+                        }
+                        else{
+				puzzle_set(puzzle, row, column, 0);
+                        }
+                }
+                puzzleVal++;
+        }
+
+        //executed ONLY if puzzle is UNSOLVABLE
+        return false;
+} 
