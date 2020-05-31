@@ -101,7 +101,7 @@ bool fill_others(puzzle_t *p, int row, int column);
  *   n/a
  * 
  * Note:
- *  Removed these numbers are set to 0, representing an empty space
+ *  Removed numbers are set to 0, representing an empty space
  */
 void remove_values(puzzle_t *p, int count);
 
