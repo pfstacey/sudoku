@@ -4,28 +4,98 @@
  */
  
 #include <gtk/gtk.h>
+#include "puzzle.h"
+#include "create.h"
+#include "solve.h"
 
-GtkWidget *r0;
-GtkWidget *r1;
-GtkWidget *r2;
-GtkWidget *r3;
-GtkWidget *r4;
-GtkWidget *r5;
-GtkWidget *r6;
-GtkWidget *r7;
-GtkWidget *r8;
+GtkWidget *grid;
+puzzle_t *puzzle;
 
-const int COL_SIZE = 3;
+bool solved = false;
+
+int * load_puzzle_into_81x1(){
+	int *nums = malloc(81 * sizeof(int));
+
+        for(int i = 0; i < 81; i++){
+                nums[i] = puzzle_getValue(puzzle, i / 9, i % 9);
+        }
+
+        return nums;
+}
+
+int * load_puzzle(){
+	puzzle = puzzle_new();
+
+	rand_init();
+	build_puzzle(puzzle);
+
+	puzzle_write(puzzle);
+
+	int *nums = malloc(81 * sizeof(int));
+
+	return load_puzzle_into_81x1();
+}
+
+int * solve_puzzle(){
+	printf("%d\n", backtrack(puzzle, 0, 0));
+
+	puzzle_write(puzzle);
+
+	return load_puzzle_into_81x1();
+}
 
 static void solve (GtkWidget *widget,  gpointer   data) {
-    	g_print ("Hello World\n");
+    	
+	if(solved == true){
+		printf("Already solved\n");
+		return;
+	}
+	
+	solved = true;
+
+	int * numbers = solve_puzzle();
+	
+	for(int i = 0; i < 81; i++){
+		GtkWidget *text = gtk_grid_get_child_at(GTK_GRID(grid), i % 9, i / 9);
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
+		
+		char *num = malloc(2 * sizeof(char));
+                sprintf(num, "%d", numbers[i]);
+		
+		gtk_text_buffer_set_text (buffer, num, -1);
+
+		free(num);
+	}
+
+	free(numbers);
+	free(puzzle);
+}
+
+//TODO: create loader function to load in all of the numbers
+
+static void grid_setup(){
+	int * numbers = load_puzzle();
+
+	for(int i = 0; i < 81; i++){
+		GtkWidget *text = gtk_text_view_new ();
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (text));
+
+		char *num = malloc(2 * sizeof(char));
+		sprintf(num, "%d", numbers[i]);
+
+		gtk_text_buffer_set_text (buffer, num, -1);
+	
+		gtk_grid_attach(GTK_GRID(grid), text, i % 9, i / 9, 1, 1);
+		
+		free(num);
+	}
+
+	free(numbers);
 }
 
 static void activate (GtkApplication *app, gpointer user_data) {
 	GtkWidget *window;
 	GtkWidget *solvebutton;
-
-	GtkWidget *grid;
 
 	window = gtk_application_window_new (app);
 	gtk_window_set_title (GTK_WINDOW (window), "Window");
@@ -36,37 +106,11 @@ static void activate (GtkApplication *app, gpointer user_data) {
 	gtk_grid_set_column_homogeneous(GTK_GRID(grid), TRUE);
 	gtk_grid_set_row_homogeneous(GTK_GRID(grid), TRUE);
 
-	r0 = gtk_entry_new();
-	gtk_grid_attach(GTK_GRID(grid), r0, 0, 0, COL_SIZE, 1);
-	gtk_entry_set_text(GTK_ENTRY(r0), "hello world");
-
-	r1 = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), r1, 0, 1, COL_SIZE, 1);
-
-	r2 = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), r2, 0, 2, COL_SIZE, 1);
-
-        r3 = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), r3, 0, 3, COL_SIZE, 1);
-
-	r4 = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), r4, 0, 4, COL_SIZE, 1);
-
-        r5 = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), r5, 0, 5, COL_SIZE, 1);
-
-	r6 = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), r6, 0, 6, COL_SIZE, 1);
-
-        r7 = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), r7, 0, 7, COL_SIZE, 1);
-
-	r8 = gtk_entry_new();
-        gtk_grid_attach(GTK_GRID(grid), r8, 0, 8, COL_SIZE, 1);
+	grid_setup();
 
 	solvebutton = gtk_button_new_with_label ("Solve");
 	g_signal_connect (solvebutton, "clicked", G_CALLBACK (solve), NULL);
-	gtk_grid_attach(GTK_GRID(grid), solvebutton, 1, 9, 1, 1);
+	gtk_grid_attach(GTK_GRID(grid), solvebutton, 4, 9, 1, 1);
 
 	gtk_widget_show_all (window);
 }
