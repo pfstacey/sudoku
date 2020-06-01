@@ -29,17 +29,13 @@ int * load_puzzle(){
 	rand_init();
 	build_puzzle(puzzle);
 
-	puzzle_write(puzzle);
-
 	int *nums = malloc(81 * sizeof(int));
 
 	return load_puzzle_into_81x1();
 }
 
 int * solve_puzzle(){
-	printf("%d\n", backtrack(puzzle, 0, 0));
-
-	puzzle_write(puzzle);
+	backtrack(puzzle, 0, 0);
 
 	return load_puzzle_into_81x1();
 }
