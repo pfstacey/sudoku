@@ -74,7 +74,6 @@ bool backtrack(puzzle_t *puzzle, int row, int column){
                 puzzleVal++;
         }
 
-        //executed ONLY if puzzle is UNSOLVABLE
         return false;
 } 
 
@@ -113,6 +112,5 @@ bool backtrack_optimized(puzzle_t *puzzle, int row, int column){
                 puzzleVal++;
         }
 
-        //executed ONLY if puzzle is UNSOLVABLE
         return false;
 } 
