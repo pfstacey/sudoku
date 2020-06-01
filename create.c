@@ -99,8 +99,8 @@ bool check_array(int checked[], int num, int pos)
 /**************** valid_num() ****************/
 bool valid_num(int num, int r, int c, puzzle_t *p)
 {
-    int i, j;
-
+    /*int i, j;
+    
     //check if a value is in the same block
     for (i = 0; i < 9; i++) {
         for (j = 0; j < 9; j++) {
@@ -133,8 +133,8 @@ bool valid_num(int num, int r, int c, puzzle_t *p)
     }
 
     return true;
-
-    /*
+    */
+    
     int i = 0;
     int *row = puzzle_getRow(p,r);
     int *column = puzzle_getCol(p,c);
@@ -148,7 +148,7 @@ bool valid_num(int num, int r, int c, puzzle_t *p)
     free(grid);
     if (i == 9) return true; // number doesnt appear in the row/column/grid 
     else return false; // number appears in the row/column/grid 
-    */
+    
 }
 
 /**************** fill_others() ****************/

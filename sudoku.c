@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "puzzle.h"
 #include "create.h"
 #include "solve.h"
+#include "file.h"
 
 int main(int argc, char *argv[])
 {    
@@ -32,10 +34,30 @@ int main(int argc, char *argv[])
             }
         }
         else if (strcmp(input,"solve") == 0){
-            puzzle_t *puzzle = puzzle_load();
-            backtrack(puzzle,0,0);
-            puzzle_write(puzzle);
-            puzzle_delete(puzzle);
+            char input[25];
+            memset(input,0,strlen(input));
+            int i = 0, count = 0;
+            char file[10] = "board";
+            FILE *fp = fopen(file,"w");
+            while((scanf("%[^\n]",input)) != EOF){
+                fprintf(fp,"%s\n",input);
+                scanf("%c",input);
+                memset(input,0,strlen(input));
+                i++;
+                if (i == 9){
+                    count++;
+                    fclose(fp);
+                    fp = fopen(file,"r");
+                    puzzle_t *puzzle = puzzle_load(fp);
+                    backtrack(puzzle,0,0);
+                    printf("\nPuzzle %d: \n", count);
+                    puzzle_write(puzzle);
+                    puzzle_delete(puzzle);
+                    fclose(fp);
+                    fp = fopen(file,"w");
+                    i = 0;
+                }
+            }
         }
 
     }

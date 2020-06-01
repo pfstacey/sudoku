@@ -128,7 +128,7 @@ void puzzle_write(puzzle_t *p);
 *   The puzzle is expected to be displayed (via 'cat') in the stdin 
 *   
 */
-puzzle_t *puzzle_load();
+puzzle_t *puzzle_load(FILE *fp);
 
 /**************** puzzle_delete ****************/
 /* Delete puzzle
