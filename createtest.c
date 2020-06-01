@@ -61,6 +61,9 @@ int main(){
     build_puzzle(test2);
     puzzle_write(test2);
 
+    puzzle_delete(test2);
+    puzzle_delete(test);
+
     return 0;
 
 

@@ -112,7 +112,7 @@ bool valid_num(int num, int r, int c, puzzle_t *p)
 /**************** fill_others() ****************/
 bool fill_others(puzzle_t *p, int r, int c)
 {
-    if (r == 9){
+   if (r == 9){
         r = 0;
         c++;
     }
@@ -132,11 +132,29 @@ bool fill_others(puzzle_t *p, int r, int c)
         }
     }
 
+
+
     int k = 0, puzzleVal = 0;
     while(k < 9){ // iterate through the randomly ordered array
         puzzleVal = random[k];
         if(valid_num(puzzleVal, r, c, p)){
             puzzle_set(p, r, c, puzzleVal);
+            /*
+            printf("%d vs %d\n", puzzleVal, puzzle_getValue(p, r, c));
+            int nextr, nextc;
+            get_next_cell(r, c, &nextr, &nextc, p);
+
+            if (nextr == -1 && nextc == -1) {
+                printf("hi");
+                return true;
+            }
+            else {
+                if (fill_others(p, nextr, nextc)) {
+                    return true;
+                }
+                //puzzle_set(p, r, c, 0);
+            }*/
+
             if(fill_others(p, r + 1, c)){
                 return true;
             }
@@ -150,6 +168,30 @@ bool fill_others(puzzle_t *p, int r, int c)
     }
     return false;
 } 
+
+void get_next_cell(int r, int c, int *nextr, int *nextc, puzzle_t *p) {
+    int i, j;  // Next cells
+    for (i = r; i < 9; i++) {
+        int begin;
+        if (i == r) {
+            begin = c;
+        }
+        else {
+            begin = 0;
+        }
+        for (j = begin; j < 9; j++) {
+            if (puzzle_getValue(p, i, j) == 0) {
+                *nextr = i;
+                *nextc = j;
+                return;
+            }
+        }
+    }
+    printf("hello");
+    *nextr = -1;
+    *nextc = -1;
+    return;
+}
 
 /*************remove_values************/
 
