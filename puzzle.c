@@ -32,7 +32,7 @@ puzzle_t *puzzle_new(){
             for(int i = 0; i < 9; i++){
                 (p -> grid)[i] = (int *)malloc(9 * sizeof(int));
                 if((p -> grid)[i] == NULL){
-                    printf("[puzzle_new] error: unable to allocate internal array\n");
+                    fprintf(stderr,"[puzzle_new] error: unable to allocate internal array\n");
                     return NULL;
                 }
             }
@@ -45,7 +45,7 @@ puzzle_t *puzzle_new(){
             return p;
         }
         else{
-            printf("[puzzle_new] error: null grid\n");
+            fprintf(stderr,"[puzzle_new] error: null grid\n");
             return NULL;
         }
     }
@@ -61,17 +61,17 @@ bool puzzle_set(puzzle_t *p, const int row, const int col, const int value){
                 return true;
             }
             else{
-                printf("[puzzle_set] error: invalid col\n");
+                fprintf(stderr,"[puzzle_set] error: invalid col\n");
                 return NULL;
             }
         }
         else{
-            printf("[puzzle_set] error: invalid row\n");
+            fprintf(stderr,"[puzzle_set] error: invalid row\n");
             return NULL;
         }
     }
     else{
-        printf("[puzzle_set] error: invalid puzzle\n");
+        fprintf(stderr,"[puzzle_set] error: invalid puzzle\n");
         return NULL;
     }
 }
@@ -84,17 +84,17 @@ const int puzzle_getValue(puzzle_t * p, const int row, const int col){
                 return (p->grid)[row][col];
             }
             else{
-                printf("[puzzle_getValue] error: invalid col\n");
+                fprintf(stderr,"[puzzle_getValue] error: invalid col\n");
                 return -1;
             }
         }
         else{
-            printf("[puzzle_getValue] error: invalid row\n");
+            fprintf(stderr,"[puzzle_getValue] error: invalid row\n");
             return -1;
         }
     }
     else{
-        printf("[puzzle_getValue] error: invalid puzzle\n");
+        fprintf(stderr,"[puzzle_getValue] error: invalid puzzle\n");
         return -1;
     }
 }
@@ -111,17 +111,17 @@ int * puzzle_getRow(puzzle_t * p, const int r){
                 return row;
             }
             else{
-                printf("[puzzle_getRow] error: trouble allocating column space\n");
+                fprintf(stderr,"[puzzle_getRow] error: trouble allocating column space\n");
                 return NULL;
             }
         }
         else{
-            printf("[puzzle_getRow] error: invalid row\n");
+            fprintf(stderr,"[puzzle_getRow] error: invalid row\n");
             return NULL;
         }
     }
     else{
-        printf("[puzzle_getRow] error: invalid puzzle\n");
+        fprintf(stderr,"[puzzle_getRow] error: invalid puzzle\n");
         return NULL;
     }
 }
@@ -138,17 +138,17 @@ int * puzzle_getCol(puzzle_t * p, const int col){
                 return column;
             }
             else{
-                printf("[puzzle_getCol] error: trouble allocating column space\n");
+                fprintf(stderr,"[puzzle_getCol] error: trouble allocating column space\n");
                 return NULL;
             }
         }
         else{
-            printf("[puzzle_getCol] error: invalid row\n");
+            fprintf(stderr,"[puzzle_getCol] error: invalid row\n");
             return NULL;
         }
     }
     else{
-        printf("[puzzle_getCol] error: invalid puzzle\n");
+        fprintf(stderr,"[puzzle_getCol] error: invalid puzzle\n");
         return NULL;
     }
 }
@@ -168,7 +168,7 @@ int * puzzle_getMiniGrid(puzzle_t * p, const int row, const int col){
         if(mini != NULL){
             if( row < 3 && row >= 0 ){
                 //minigrid 0, 1, or 2
-                if(col < 3 && col > 0){
+                if(col < 3 && col >= 0){
                     //minigrid 0
                     int index = 0; 
                     for(int i = 0; i < 3; i++){
@@ -270,12 +270,12 @@ int * puzzle_getMiniGrid(puzzle_t * p, const int row, const int col){
             return mini;
         }
         else{
-            printf("[puzzle_getMiniGrid] error: null mini array\n");
+            fprintf(stderr,"[puzzle_getMiniGrid] error: null mini array\n");
             return NULL;
         }
     }
     else{
-        printf("[puzzle_getMiniGrid] error: null puzzle\n");
+        fprintf(stderr,"[puzzle_getMiniGrid] error: null puzzle\n");
         return NULL;
     }
 }
@@ -285,13 +285,13 @@ void puzzle_write(puzzle_t *p){
     if(p != NULL){
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
-                printf("%d ", (p->grid)[i][j]);
+                fprintf(stdout,"%d ", (p->grid)[i][j]);
             }
-            printf("\n");
+            fprintf(stdout,"\n");
         }
     }
     else{
-        printf("[puzzle_write] error: null puzzle as parameter\n");
+        fprintf(stderr,"[puzzle_write] error: null puzzle as parameter\n");
     }
 }
 
@@ -315,7 +315,7 @@ puzzle_t *puzzle_load(){
         return p;
     }
     else{
-        printf("[puzzle_load] error: trouble making new puzzle\n");
+        fprintf(stderr,"[puzzle_load] error: trouble making new puzzle\n");
         return NULL;
     }
 }
