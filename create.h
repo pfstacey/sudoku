@@ -105,4 +105,7 @@ bool fill_others(puzzle_t *p, int row, int column);
  */
 void remove_values(puzzle_t *p, int count);
 
+
+void get_next_cell(int r, int c, int *nextr, int *nextc, puzzle_t *puzzleVal);
+
 #endif
