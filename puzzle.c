@@ -309,7 +309,7 @@ puzzle_t *puzzle_load(){
             &(p->grid)[i][5], 
             &(p->grid)[i][6], 
             &(p->grid)[i][7], 
-            &(p->grid)[i][8]) == 9){
+            &(p->grid)[i][8]) == 9 && i < 9){
                 i += 1; 
         }
         return p;
