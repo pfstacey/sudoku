@@ -35,6 +35,7 @@ bool build_puzzle(puzzle_t *puzzle)
         fill_miniGrid(puzzle,i*3,i*3);
     }
     if(fill_others(puzzle,0,3)) {
+        remove_values(puzzle, 40);
         return true;
     }
     else return false;
