@@ -48,4 +48,4 @@ clean:
 	rm -rf *.dSYM
 	rm -f core
 	rm -f $(LIB) *~ *.o
-	rm board
+	rm -f board
