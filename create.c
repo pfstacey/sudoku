@@ -94,6 +94,42 @@ bool check_array(int checked[], int num, int pos)
 /**************** valid_num() ****************/
 bool valid_num(int num, int r, int c, puzzle_t *p)
 {
+    int i, j;
+
+    //check if a value is in the same block
+    for (i = 0; i < 9; i++) {
+        for (j = 0; j < 9; j++) {
+            if ((i!= r || (j!= c))){
+                if((((int) i/3) == ((int) r/3)) && (((int) j/3) == ((int) c/3))) {
+                    if (puzzle_getValue(p, i, j) == num){
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+
+    // Chekc if in same row
+    for (i = 0; i < 9; i++) {
+        if (i!= c) {
+            if (puzzle_getValue(p, r, i) == num){
+                return false;
+            }
+        }
+    }
+
+    // check if in same column
+    for (i = 0; i < 9; i++) {
+        if (i!= r) {
+            if (puzzle_getValue(p, i, c) == num){
+                return false;
+            }
+        }
+    }
+
+    return true;
+
+    /*
     int i = 0;
     int *row = puzzle_getRow(p,r);
     int *column = puzzle_getCol(p,c);
@@ -107,11 +143,13 @@ bool valid_num(int num, int r, int c, puzzle_t *p)
     free(grid);
     if (i == 9) return true; // number doesnt appear in the row/column/grid 
     else return false; // number appears in the row/column/grid 
+    */
 }
 
 /**************** fill_others() ****************/
 bool fill_others(puzzle_t *p, int r, int c)
 {
+    /*
    if (r == 9){
         r = 0;
         c++;
@@ -119,8 +157,9 @@ bool fill_others(puzzle_t *p, int r, int c)
 
     if (c == 9) return true;
 
-    if (puzzle_getValue(p, r, c) != 0) return fill_others(p,r+1,c);
+    if (puzzle_getValue(p, r, c) != 0) return fill_others(p,r+1,c);*/
 
+/*
     int random[9];
     int i = 0, num = 0;
     while(i < 9){ // fill an array of random numbers
@@ -131,15 +170,47 @@ bool fill_others(puzzle_t *p, int r, int c)
             i++;
         }
     }
+    */
 
-
-
+    int start = (rand())%9;
+    srand(rand()+(r*9)+c); // For recursion
     int k = 0, puzzleVal = 0;
+    for (k = start; k < start + 9; k++){
+        puzzleVal = (k%9) + 1;
+        if(!valid_num(puzzleVal, r, c, p)){
+            //printf("hi");
+            continue;
+        }
+        puzzle_set(p, r, c, puzzleVal);
+
+
+        //recursive assignment
+        int nextr, nextc;
+        get_next_cell(r, c, &nextr, &nextc, p);
+
+            if (nextr == -1 && nextc == -1) {
+                //printf("hi");
+                return true;
+            }
+            else {
+                if (fill_others(p, nextr, nextc)) {
+                    return true;
+                }
+                puzzle_set(p, r, c, 0);
+            }
+    }
+    return false;
+}
+        
+        
+
+/*
+    }
     while(k < 9){ // iterate through the randomly ordered array
         puzzleVal = random[k];
         if(valid_num(puzzleVal, r, c, p)){
             puzzle_set(p, r, c, puzzleVal);
-            /*
+            
             printf("%d vs %d\n", puzzleVal, puzzle_getValue(p, r, c));
             int nextr, nextc;
             get_next_cell(r, c, &nextr, &nextc, p);
@@ -153,7 +224,7 @@ bool fill_others(puzzle_t *p, int r, int c)
                     return true;
                 }
                 //puzzle_set(p, r, c, 0);
-            }*/
+            }
 
             if(fill_others(p, r + 1, c)){
                 return true;
@@ -167,7 +238,7 @@ bool fill_others(puzzle_t *p, int r, int c)
         k++;
     }
     return false;
-} 
+} */
 
 void get_next_cell(int r, int c, int *nextr, int *nextc, puzzle_t *p) {
     int i, j;  // Next cells
@@ -187,7 +258,6 @@ void get_next_cell(int r, int c, int *nextr, int *nextc, puzzle_t *p) {
             }
         }
     }
-    printf("hello");
     *nextr = -1;
     *nextc = -1;
     return;
