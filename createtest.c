@@ -23,7 +23,7 @@ int main(){
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
-    printf("Filling first mini grid\n");
+    /*printf("Filling first mini grid\n");
     fill_miniGrid(test, 0, 0);
     puzzle_write(test);
 
@@ -35,11 +35,11 @@ int main(){
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("Filling last mini grid\n");
     fill_miniGrid(test, 6, 6);
-    puzzle_write(test);
+    puzzle_write(test);*/
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("Filling others\n");
-    fill_others(test, 0,3);
+    fill_others(test, 0,0);
     puzzle_write(test);
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
@@ -60,6 +60,9 @@ int main(){
     puzzle_t *test2 = puzzle_new();
     build_puzzle(test2);
     puzzle_write(test2);
+
+    puzzle_delete(test2);
+    puzzle_delete(test);
 
     return 0;
 
