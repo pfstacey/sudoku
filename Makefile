@@ -7,15 +7,20 @@ MAKE = make
 
 CFLAGS = -Wall -pedantic -std=c11 -ggdb
 PROG = sudoku
+PUZZTEST = puzzletest 
 OBJS = sudoku.o puzzle.o create.o
-OBJS0 = puzzle.o
+PUZZOBJ = puzzle.o
 LIB = puzzle.a
+TESTFLAG = -DTEST
 # LLIBS = common when finished
 # rules
 all: $(PROG) $(LIB) 
 
 $(PROG): $(OBJS) $(CCLIBS) $(LLIBS) 
 	$(CC) $(CFLAGS) $^ -o $@
+
+$(PUZZTEST): $(PUZZOBJS) puzzle.c
+	$(CC) $(CFLAGS) $(TESTFLAG) $^ -o $@
 
 $(LIB): $(OBJS0)
 	ar cr $(LIB) $(OBJS0)
@@ -26,8 +31,9 @@ puzzle.o: puzzle.h
 
 .PHONY: test clean
 
-test:
-	./sudoku create
+test: $(PUZZTEST)
+	./$(PUZZTEST)
+	#./sudoku create
 
 clean:
 	rm -f $(PROG)
