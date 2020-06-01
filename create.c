@@ -62,7 +62,10 @@ void fill_miniGrid(puzzle_t *p, int row, int column)
             k = 0;
             added = false;
             while(!added && k < 9){
-                if (check_array(checked,num,k)) num = rand_num();
+                if (check_array(checked,num,k)){
+                    checked[k] = num;
+                    num = rand_num();
+                } 
                 else if (!valid_num(num,i,j,p)){
                     checked[k] = num;
                     k++;
@@ -73,7 +76,6 @@ void fill_miniGrid(puzzle_t *p, int row, int column)
                     added = true;
                 }
             }
-            if (!added) printf("frik\n");
             free(checked);
         }
     }
@@ -82,10 +84,12 @@ void fill_miniGrid(puzzle_t *p, int row, int column)
 /**************** check_array() ****************/
 bool check_array(int checked[], int num, int pos)
 {
-    int i = 0;
-    for (i = 0; i < pos; i++){
-        if (num == checked[i]){
-            return true;
+    if (pos == 0) return false;
+    else{
+        for (int i = 0; i < pos; i++){
+            if (num == checked[i]){
+                return true;
+            }
         }
     }
     return false;
@@ -140,11 +144,11 @@ bool fill_others(puzzle_t *p, int r, int c)
             if(fill_others(p, r + 1, c)){
                 return true;
             }
-            else{
-                if (r !=0) fill_others(p,r-1,c);
-                else if(c != 0) fill_others(p,r,c-1);
-                else puzzle_set(p, r, c, 0);
-            }
+            // else{
+            //     if (r !=0) fill_others(p,r-1,c);
+            //     else if(c != 0) fill_others(p,r,c-1);
+            //     else puzzle_set(p, r, c, 0);
+            // }
         }
         k++;
     }
