@@ -3,6 +3,7 @@
 #include <string.h>
 #include "puzzle.h"
 #include "create.h"
+#include "solve.h"
 
 int main(int argc, char *argv[])
 {    
@@ -26,10 +27,15 @@ int main(int argc, char *argv[])
             else{
                 rand_init();
                 build_puzzle(puzzle);
-                printf("\nfinal board:\n");
                 puzzle_write(puzzle);
                 puzzle_delete(puzzle);
             }
+        }
+        else if (strcmp(input,"solve") == 0){
+            puzzle_t *puzzle = puzzle_load();
+            backtrack(puzzle,0,0);
+            puzzle_write(puzzle);
+            puzzle_delete(puzzle);
         }
 
     }

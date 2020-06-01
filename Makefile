@@ -7,7 +7,7 @@ MAKE = make
 
 CFLAGS = -Wall -pedantic -std=c11 -ggdb
 PROG = sudoku
-OBJS = sudoku.o puzzle.o create.o
+OBJS = sudoku.o puzzle.o create.o solve.o
 OBJS0 = puzzle.o
 LIB = puzzle.a
 # LLIBS = common when finished
@@ -23,11 +23,17 @@ $(LIB): $(OBJS0)
 sudoku.o: puzzle.o puzzle.h create.h
 create.o: create.h
 puzzle.o: puzzle.h
+solve.o: solve.h
 
-.PHONY: test clean
+.PHONY: test graphics clean
 
-test:
-	./sudoku create
+test: ./testing.sh
+	./testing.sh &> testing.out
+	cat testing.out
+
+graphics: 
+	gcc `pkg-config --cflags gtk+-3.0` puzzle.c solve.c create.c -o graphics graphics.c `pkg-config --libs gtk+-3.0`
+	./graphics
 
 clean:
 	rm -f $(PROG)
