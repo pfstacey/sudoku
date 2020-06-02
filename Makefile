@@ -10,9 +10,11 @@ CFLAGS = -Wall -pedantic -std=c11 -ggdb
 PROG = sudoku
 PUZZTEST = puzzletest 
 CREATETEST = createtest
+SOLVETEST = solvetest
 OBJS = sudoku.o puzzle.o create.o
 PUZZOBJ = puzzle.o
 CREATEOBJS = puzzle.o
+SOLVEOBJS = puzzle.o
 OBJS = sudoku.o puzzle.o create.o solve.o
 LIB = puzzle.a
 TESTFLAG = -D TEST
@@ -38,6 +40,9 @@ $(PUZZTEST): $(PUZZOBJ)
 $(CREATETEST): $(CREATEOBJS) create.c
 	$(CC) $(CFLAGS) $(TESTFLAG) $^ -o $@
 
+$(SOLVETEST): $(SOLVEOBJS) solve.c
+	$(CC) $(CFLAGS) $(TESTFLAG) $^ -o $@
+
 sudoku.o: puzzle.o puzzle.h create.h
 create.o: create.h puzzle.o puzzle.h
 puzzle.o: puzzle.h
@@ -50,9 +55,10 @@ blackboxtest:
 	./testing.sh &>> testing.out
 	cat testing.out
 
-whiteboxtest: $(PUZZTEST) $(CREATETEST)
-	./$(CREATETEST) &>>testing.out
+whiteboxtest: $(PUZZTEST) $(CREATETEST) $(SOLVETEST) 
 	./$(PUZZTEST) &>> testing.out
+	./$(CREATETEST) &>>testing.out
+	./$(SOLVETEST) &>>testing.out
 
 test:
 	make blackboxtest
