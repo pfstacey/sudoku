@@ -10,7 +10,71 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "puzzle.h"
- 
+#include "create.h"
+
+set_t *all_r_c_m;
+
+void init(puzzle_t *puzzle){
+	all_r_c_m = set_new();
+
+	for(int i = 0; i < 9; i++){
+		char *name = malloc(3 * sizeof(char));
+
+		sprintf(name, "r%d", i);
+
+		set_insert(all_r_c_m, name, puzzle_getRow(puzzle, i);
+	}
+
+	for(int i = 0; i < 9; i++){
+		char *name = malloc(3 * sizeof(char));
+
+		sprintf(name, "c%d", i);
+
+		set_insert(all_r_c_m, name, puzzle_getCol(puzzle, i);
+	}
+
+	for(int i = 0; i < 3; i++){
+		for(int j = 0; j < 3; j++){
+			char *name = malloc(4 * sizeof(char));
+
+			sprintf(name, "m%d%d", i, j);
+
+			set_insert(all_r_c_m, name, puzzle_getMiniGrid(puzzle, i, j));
+		}
+	}
+}
+
+/******************** CLEAN ******************
+ * deletes the set from memory - please call this
+ */
+void itemdelete(void *item){
+	free((int *) item);
+}
+
+void clean(){
+	set_delete(all_r_c_m, itemdelete);
+}
+
+int * get_subarray(int type, int row, int col){
+	//get the key string for the row and column
+	char *name = malloc(4 * sizeof(char));
+
+	if(type == 1){
+		sprintf(name, "r%d", row);
+	}
+	else if(type == 2){
+		sprintf(name, "c%d", col);
+	}
+	else if(type == 3){
+		sprintf(name, "m%d%d", row, col);
+	}
+	else{
+		fprintf(stderr, "Invalid method call, make type [1, 3]");
+		exit(1);
+	}
+
+	return set_find(all_r_c_m, name);
+}
 
 /*
  * boolean method that returns true if an integer val is contained in array arr
@@ -25,18 +89,14 @@ bool contains(int * arr, int val){
         return false;
 }
 
-bool valid_puzzle(puzzle_t *puzzle, int r, int c, int puzzleVal){
-        int * row = puzzle_getRow(puzzle, r);
-        int * col = puzzle_getCol(puzzle, c);
-        int * sub = puzzle_getMiniGrid(puzzle, r, c);
+bool optimized_valid_puzzle(puzzle_t *puzzle, int r, int c, int puzzleVal){
+        int * row = get_subarray(1, r, c);
+        int * col = get_subarray(2, r, c);
+        int * sub = get_subarray(3, r, c);
 
         if(contains(row, puzzleVal) || contains(col, puzzleVal) || contains(sub, puzzleVal)){
                 return false;
         }
-
-        free(row);
-        free(col);
-        free(sub);
 
         return true;
 }
@@ -61,7 +121,7 @@ bool backtrack(puzzle_t *puzzle, int row, int column){
         int puzzleVal = 1;
 
         while(puzzleVal < 10){
-                if(valid_puzzle(puzzle, row, column, puzzleVal)){
+		if(valid_num(puzleVal, row, column, puzzle)){
                         puzzle_set(puzzle, row, column, puzzleVal);
 
                         //recursive step
