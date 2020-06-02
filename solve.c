@@ -9,6 +9,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
+#include "set.h"
 #include "puzzle.h"
 #include "create.h"
 
