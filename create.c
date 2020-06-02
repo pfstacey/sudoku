@@ -211,7 +211,7 @@ int main(void){
 
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("Filling the other mini grids:\n");
-    fill_others(test, 0,0);
+    fill_others(test, 0,3);
     puzzle_write(test);
     printf("\n");
 
@@ -225,9 +225,8 @@ int main(void){
           printf("1 found in column 0/row 0/in the first minigrid. Not a valid number!\n");
     }
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    printf("Removing values: Should leave 41 spaces open\n");
+    printf("Now we have filled the puzzle! Next, we'll delete 40 \nitems from the puzzle and will be all good to go!\n");
     remove_values(test, 40);
-    printf("Here's the final puzzle: \n");
     puzzle_write(test);
     printf("\n");
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");

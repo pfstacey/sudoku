@@ -29,14 +29,14 @@ all: $(PROG) $(LIB)
 $(PROG): $(OBJS) $(CCLIBS) $(LIB) 
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(PUZZTEST): $(PUZZOBJS) puzzle.c
+$(LIB): $(OBJS0)
+	ar cr $(LIB) $(PUZZOBJ)
+
+$(PUZZTEST): $(PUZZOBJ)
 	$(CC) $(CFLAGS) $(TESTFLAG) $^ -o $@
 
 $(CREATETEST): $(CREATEOBJS) create.c
 	$(CC) $(CFLAGS) $(TESTFLAG) $^ -o $@
-
-$(LIB): $(OBJS0)
-	ar cr $(LIB) $(PUZZOBJS)
 
 sudoku.o: puzzle.o puzzle.h create.h
 create.o: create.h puzzle.o puzzle.h
@@ -46,19 +46,17 @@ file.o: file.h
 
 .PHONY: test whiteboxtest blackboxtest graphics clean
 
-whiteboxtest: $(PUZZTEST) $(CREATETEST)
-	#./$(CREATETEST)
-	#./testing.sh
-	#./testing.sh &>> testing.out
-	./$(PUZZTEST) &>> testing.out
-
 blackboxtest: 
 	./testing.sh &>> testing.out
 	cat testing.out
 
+whiteboxtest: $(PUZZTEST) $(CREATETEST)
+	./$(CREATETEST) &>>testing.out
+	./$(PUZZTEST) &>> testing.out
+
 test:
-	make whiteboxtest
 	make blackboxtest
+	make whiteboxtest
 
 graphics: 
 	gcc `pkg-config --cflags gtk+-3.0` puzzle.c solve.c create.c -o graphics graphics.c `pkg-config --libs gtk+-3.0`
