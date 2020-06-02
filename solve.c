@@ -7,11 +7,7 @@
  * Teammates: Piper Stacey, Sarah Korb, Marlee Montella
  */
 
-#include<stdio.h>
-#include<stdlib.h>
-#include "set.h"
-#include "puzzle.h"
-#include "create.h"
+#include "solve.h"
 
 set_t *all_r_c_m;
 
@@ -71,7 +67,7 @@ int * get_subarray(int type, int row, int col){
 	}
 	else{
 		fprintf(stderr, "Invalid method call, make type [1, 3]");
-		exit(1);
+		return NULL;
 	}
 
 	return set_find(all_r_c_m, name);
@@ -163,7 +159,7 @@ bool backtrack_optimized(puzzle_t *puzzle, int row, int column, int ** original)
         for(i =0; i< 9; i ++){
                 if (original[row][i] > 0){ //ignore negatives, they indicate values that we are sure won't work
                         puzzleVal = original[row][i];
-                        if(valid_puzzle(puzzle, row, column, puzzleVal)){
+                        if(optimized_valid_puzzle(puzzle, row, column, puzzleVal)){
                                 puzzle_set(puzzle, row, column, puzzleVal);
                         
                         //recursive step
