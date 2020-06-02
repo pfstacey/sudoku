@@ -30,10 +30,7 @@ bool build_puzzle(puzzle_t *puzzle);
 
 /**************** rand_init() ****************/
 /* 
- *
- * Caller provides:
- *   
- * We return:
+ *  Provides seed to use random number generator function rand()
  */
 
 void rand_init(void);
@@ -43,10 +40,10 @@ void rand_init(void);
 /* Generates random integer from 1-9
  *
  * Caller provides:
- *   
+ *   no parameters
  * We return:
- * integer between 1-9
- */
+ *   random integer between 1-9
+ */ 
 int rand_num(void);
 
 /**************** fill_miniGrid() ****************/
@@ -69,6 +66,7 @@ void fill_miniGrid(puzzle_t *p, int row, int column);
  *  false if number is not in array
  */
 bool check_array(int checked[], int num, int pos);
+
 /**************** valid_num() ****************/
 /* Checks to see if number can be inserted in a given row, column and grid
  *
@@ -79,6 +77,7 @@ bool check_array(int checked[], int num, int pos);
  *   true if nuber does not appezr in the row/column/grid
  */
 bool valid_num(int num, int r, int c, puzzle_t *p);
+
 /**************** fill_others() ****************/
 /* Fills remaining spaces in sudoku grid
  *
@@ -92,6 +91,7 @@ bool valid_num(int num, int r, int c, puzzle_t *p);
  *  recursive function: calls itself within function body
  */
 bool fill_others(puzzle_t *p, int row, int column);
+
 /**************** remove_values() ****************/
 /* removes a set number of values in the sudoku grid
  *
@@ -105,7 +105,14 @@ bool fill_others(puzzle_t *p, int row, int column);
  */
 void remove_values(puzzle_t *p, int count);
 
-
+/**************** ger_next_cell() ****************/
+/* removes a set number of values in the sudoku grid
+ *
+ * Caller provides:
+ *   row and column, pointer to next row and column, valid pointer to puzzle
+ * We return:
+ *   n/a
+ */
 void get_next_cell(int r, int c, int *nextr, int *nextc, puzzle_t *puzzleVal);
 
 #endif

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "puzzle.h"
+#include "file.h"
 
 /**************** file-local global variables ****************/
 /* none */
@@ -296,11 +297,11 @@ void puzzle_write(puzzle_t *p){
 }
 
 /**************** puzzle_load ****************/
-puzzle_t *puzzle_load(){
+puzzle_t *puzzle_load(FILE *fp){
     puzzle_t *p = puzzle_new();
-    if(p != NULL){
+    if(p != NULL && fp != NULL){
         int i = 0;
-        while(fscanf(stdin, "%d %d %d %d %d %d %d %d %d", 
+        while(fscanf(fp, "%d %d %d %d %d %d %d %d %d", 
             &(p->grid)[i][0], 
             &(p->grid)[i][1], 
             &(p->grid)[i][2], 
@@ -319,7 +320,6 @@ puzzle_t *puzzle_load(){
         return NULL;
     }
 }
-
 
 /**************** puzzle_delete ****************/
 void puzzle_delete(puzzle_t *p){

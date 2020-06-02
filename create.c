@@ -15,18 +15,6 @@
 #include "create.h"
 #include "puzzle.h"
 
-int rand_num(void);
-void fill_miniGrid(puzzle_t *p, int row, int column);
-bool check_array(int checked[], int num, int pos);
-bool valid_num(int num, int r, int c, puzzle_t *p);
-bool fill_others(puzzle_t *p, int row, int column);
-
-/**************** global functions ****************/
-/**************** rand_init() ****************/
-void rand_init(void){
-    time_t t;
-    srand((unsigned) time(&t));
-}
 /**************** build_puzzle() ****************/
 bool build_puzzle(puzzle_t *puzzle)
 {
@@ -34,14 +22,20 @@ bool build_puzzle(puzzle_t *puzzle)
     for (int i = 0; i < 3; i++){
         fill_miniGrid(puzzle,i*3,i*3);
     }
-    if(fill_others(puzzle,0,3)) {
+    // recursively fill the rest of the spaces
+    if(fill_others(puzzle,0,3)) { // if successful, remove 40 values 
         remove_values(puzzle, 40);
         return true;
     }
     else return false;
 }
 
-/**************** local functions ****************/
+/**************** rand_init() ****************/
+void rand_init(void){
+    time_t t;
+    srand((unsigned) time(&t)); // initialize ransom number generator
+}
+
 /**************** rand_num() ****************/
 int rand_num(void){
     long x;
@@ -56,28 +50,28 @@ void fill_miniGrid(puzzle_t *p, int row, int column)
 {
     int num,k;
     bool added;
-    for (int i = row; i < row+3; i++){
-        for (int j = column; j < column+3; j++){
-            num = rand_num();
-            int *checked = (int *)calloc(9,sizeof(int));
-            k = 0;
-            added = false;
-            while(!added && k < 9){
-                if (check_array(checked,num,k)){
-                    checked[k] = num;
-                    num = rand_num();
+    for (int i = row; i < row+3; i++){ // 3 rows
+        for (int j = column; j < column+3; j++){ // 3 columns per row
+            num = rand_num(); // get a random number
+            int *checked = (int *)calloc(9,sizeof(int)); // initialize checked array
+            k = 0; // array index tracker
+            added = false; 
+            while(!added && k < 9){ // until number 1-9 have been checked or the spot has not been filled
+                if (check_array(checked,num,k)){ // check if the number has already been tested
+                    checked[k] = num; // mark the number as checked
+                    num = rand_num(); // generate a new random number
                 } 
-                else if (!valid_num(num,i,j,p)){
-                    checked[k] = num;
-                    k++;
-                    num = rand_num();
+                else if (!valid_num(num,i,j,p)){ // if the number is not valid (conflict in row/column/mini grid)
+                    checked[k] = num; // mark as checked
+                    k++; // increment the checked array
+                    num = rand_num(); // generate new random number
                 }
-                else{
+                else{ // if the number has not been checked and it is valid, fill the space
                     puzzle_set(p,i,j,num);
-                    added = true;
+                    added = true; // exit while loop
                 }
             }
-            free(checked);
+            free(checked); // reset checked array
         }
     }
 }
@@ -85,105 +79,45 @@ void fill_miniGrid(puzzle_t *p, int row, int column)
 /**************** check_array() ****************/
 bool check_array(int checked[], int num, int pos)
 {
-    if (pos == 0) return false;
+    if (pos == 0) return false; // nothing has been checked
     else{
-        for (int i = 0; i < pos; i++){
-            if (num == checked[i]){
+        for (int i = 0; i < pos; i++){ // for each number in the array
+            if (num == checked[i]){ // if it equals the num parameter, true
                 return true;
             }
         }
     }
-    return false;
+    return false; // no matches, return false
 }
 
 /**************** valid_num() ****************/
 bool valid_num(int num, int r, int c, puzzle_t *p)
 {
-    int i, j;
-
-    //check if a value is in the same block
-    for (i = 0; i < 9; i++) {
-        for (j = 0; j < 9; j++) {
-            if ((i!= r || (j!= c))){
-                if((((int) i/3) == ((int) r/3)) && (((int) j/3) == ((int) c/3))) {
-                    if (puzzle_getValue(p, i, j) == num){
-                        return false;
-                    }
-                }
-            }
-        }
-    }
-
-    // Chekc if in same row
-    for (i = 0; i < 9; i++) {
-        if (i!= c) {
-            if (puzzle_getValue(p, r, i) == num){
-                return false;
-            }
-        }
-    }
-
-    // check if in same column
-    for (i = 0; i < 9; i++) {
-        if (i!= r) {
-            if (puzzle_getValue(p, i, c) == num){
-                return false;
-            }
-        }
-    }
-
-    return true;
-
-    /*
     int i = 0;
-    int *row = puzzle_getRow(p,r);
-    int *column = puzzle_getCol(p,c);
-    int *grid = puzzle_getMiniGrid(p,r,c);
-    while (i < 9){
-        if (row[i] != num && column[i] != num && grid[i] != num) i++;
-        else break;
+    int *row = puzzle_getRow(p,r); // array of number in row
+    int *column = puzzle_getCol(p,c); // array of number in column
+    int *grid = puzzle_getMiniGrid(p,r,c);  // array of number in mini grid
+    while (i < 9){ // checking each number in the arrays
+        if (row[i] != num && column[i] != num && grid[i] != num) i++; // no matches, check next index
+        else break; // if there is a match, exit the while loop
     }
     free(row);
     free(column);
     free(grid);
-    if (i == 9) return true; // number doesnt appear in the row/column/grid 
+    if (i == 9) return true; // number does not appear in the row/column/grid 
     else return false; // number appears in the row/column/grid 
-    */
+    
 }
 
 /**************** fill_others() ****************/
 bool fill_others(puzzle_t *p, int r, int c)
 {
-    /*
-   if (r == 9){
-        r = 0;
-        c++;
-    }
-
-    if (c == 9) return true;
-
-    if (puzzle_getValue(p, r, c) != 0) return fill_others(p,r+1,c);*/
-
-/*
-    int random[9];
-    int i = 0, num = 0;
-    while(i < 9){ // fill an array of random numbers
-        num = rand_num();
-        if (check_array(random,num,i)) num = rand_num();
-        else {
-            random[i] = num;
-            i++;
-        }
-    }
-    */
-
     int start = (rand())%9;
     srand(rand()+(r*9)+c); // For recursion
     int k = 0, puzzleVal = 0;
     for (k = start; k < start + 9; k++){
         puzzleVal = (k%9) + 1;
         if(!valid_num(puzzleVal, r, c, p)){
-            //printf("hi");
             continue;
         }
         puzzle_set(p, r, c, puzzleVal);
@@ -194,7 +128,6 @@ bool fill_others(puzzle_t *p, int r, int c)
         get_next_cell(r, c, &nextr, &nextc, p);
 
             if (nextr == -1 && nextc == -1) {
-                //printf("hi");
                 return true;
             }
             else {
@@ -206,44 +139,6 @@ bool fill_others(puzzle_t *p, int r, int c)
     }
     return false;
 }
-        
-        
-
-/*
-    }
-    while(k < 9){ // iterate through the randomly ordered array
-        puzzleVal = random[k];
-        if(valid_num(puzzleVal, r, c, p)){
-            puzzle_set(p, r, c, puzzleVal);
-            
-            printf("%d vs %d\n", puzzleVal, puzzle_getValue(p, r, c));
-            int nextr, nextc;
-            get_next_cell(r, c, &nextr, &nextc, p);
-
-            if (nextr == -1 && nextc == -1) {
-                printf("hi");
-                return true;
-            }
-            else {
-                if (fill_others(p, nextr, nextc)) {
-                    return true;
-                }
-                //puzzle_set(p, r, c, 0);
-            }
-
-            if(fill_others(p, r + 1, c)){
-                return true;
-            }
-            // else{
-            //     if (r !=0) fill_others(p,r-1,c);
-            //     else if(c != 0) fill_others(p,r,c-1);
-            //     else puzzle_set(p, r, c, 0);
-            // }
-        }
-        k++;
-    }
-    return false;
-} */
 
 void get_next_cell(int r, int c, int *nextr, int *nextc, puzzle_t *p) {
     int i, j;  // Next cells
@@ -269,15 +164,15 @@ void get_next_cell(int r, int c, int *nextr, int *nextc, puzzle_t *p) {
 }
 
 /*************remove_values************/
-
 void remove_values(puzzle_t *p, int count){
-    while(count != 0){
-        int r = rand()%9;
+    while(count != 0){ // number of spaces to remove
+        // generate random coordinates on the board
+        int r = rand()%9; 
         int c = rand()%9;
-        if(puzzle_getValue(p,r,c) != 0){
+        if(puzzle_getValue(p,r,c) != 0){ // if there is a value, set to 0
             puzzle_set(p, r, c, 0);
             count --;
         }
-
+        // otherwise, get a new set of coordinates
     }
 }
