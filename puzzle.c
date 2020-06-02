@@ -335,7 +335,6 @@ void puzzle_delete(puzzle_t *p){
 #ifdef TEST
     int main(void){
         puzzle_t * piper = puzzle_new();
-        //puzzle_t * piper2;
         puzzle_set(piper, 0, 0, 1);
         puzzle_set(piper, 1, 1, 2);
         puzzle_set(piper, 2, 2, 3);
@@ -351,12 +350,10 @@ void puzzle_delete(puzzle_t *p){
         printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
         puzzle_write(piper);
-        //piper2 = puzzle_load();
 
         printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
         printf("Loading puzzle from stdin\n");
-        //puzzle_write(piper2); //Should be the same puzzle!
 
         printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
@@ -390,7 +387,6 @@ void puzzle_delete(puzzle_t *p){
 
         free(array);
         puzzle_delete(piper);
-        //puzzle_delete(piper2);
         printf("------------------------------------------------------\n");
         return 0;
     }

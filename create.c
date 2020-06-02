@@ -176,3 +176,75 @@ void remove_values(puzzle_t *p, int count){
         // otherwise, get a new set of coordinates
     }
 }
+
+#ifdef TEST
+int main(void){
+    printf("------------------------------------------------------\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("    Testing the functionality of creating puzzles!\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+    puzzle_t * test = puzzle_new();
+
+    printf("Initializing a new puzzle: \n");
+    puzzle_write(test);
+    printf("\n");
+
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+    printf("Filling first mini grid:\n");
+    fill_miniGrid(test, 0, 0);
+    puzzle_write(test);
+    printf("\n");
+
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Filling center mini grid:\n");
+    fill_miniGrid(test, 3, 3);
+    puzzle_write(test);
+    printf("\n");
+
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Filling last mini grid:\n");
+    fill_miniGrid(test, 6, 6);
+    puzzle_write(test);
+    printf("\n");
+
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Filling the other mini grids:\n");
+    fill_others(test, 0,0);
+    puzzle_write(test);
+    printf("\n");
+
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+    printf("Test valid_num using arbitrary integer: 1\n");
+    printf("checking for 1 in row 0, column 0\n");
+    if (valid_num(1,0,0,test)){
+        printf("1 is not found in column 0, row 0 or in the first minigrid!\n");
+    }else{
+          printf("1 found in column 0/row 0/in the first minigrid. Not a valid number!\n");
+    }
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Removing values: Should leave 41 spaces open\n");
+    remove_values(test, 40);
+    printf("Here's the final puzzle: \n");
+    puzzle_write(test);
+    printf("\n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("             Now let's put it all together! \n");
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Using build_puzzle to generate new,sudoku board\n");
+    puzzle_t *test2 = puzzle_new();
+    build_puzzle(test2);
+    printf("Here's the final puzzle: \n");
+    puzzle_write(test2);
+    printf("\n");
+
+    puzzle_delete(test2);
+    puzzle_delete(test);
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("------------------------------------------------------\n");
+    return 0;
+
+}
+#endif
