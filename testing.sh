@@ -1,4 +1,8 @@
-#Bash script for testing 
+# Title: testing.sh
+# Date: 6/1/2020
+# Description: sudoku testing
+
+#!/bin/bash
 
 ##### THESE TESTS SHOULD FAIL ######
 echo $'\n~~~~~~~~~~~~~~~~~~~~~~'
