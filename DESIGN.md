@@ -74,7 +74,14 @@ The `./sudoku create` commant will run as follows:
 The `./sudoku solve` commant will run as follows:
 ns to convert it into a clean, canonical form.
 
-.... ADD TO LATER
+1. Open the file titled "board" which has the puzzle printed (9 lines of 9 integers)
+2. Load a puzzle object from this file.
+3. Use the `backtrack` function to solve the puzzle:
+    4. Starting at the top left corner...
+    5. If the number in the current cell is 0, put in a valid option from 1-9, and move on to the next cell down.
+    6. If there are no valid options, we made a mistake farther back. Call `backtrack` on the row above.
+    7. Stop once we finish the bottom right cell
+8. Write the solved puzzle to the output 
 
 ### Dataflow through modules
  

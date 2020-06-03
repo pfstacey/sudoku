@@ -206,3 +206,4 @@ int** original_num(puzzle_t *p){
         }
         return originals;
 }
+

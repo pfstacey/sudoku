@@ -41,14 +41,6 @@ int main(int argc, char *argv[])
             }
         }
         else if (strcmp(input,"solve") == 0){
-            // puzzle_t *puzzle = puzzle_load();
-            // int ** originals = original_num(puzzle);  //comment these out if needed 
-            // backtrack_optimized(puzzle, 0, 0, originals);
-            // //backtrack(puzzle,0,0);
-        
-            // puzzle_write(puzzle);
-
-            // puzzle_delete(puzzle);
             char input[25];
             memset(input,0,strlen(input));
             int i = 0, count = 0;
