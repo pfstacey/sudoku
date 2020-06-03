@@ -152,5 +152,6 @@ No assumptions beyond those that are clear from the spec
 
 To compile: `make`
 To test: `make test`
+To use graphics: `make graphics`
 See [TESTING](TESTING.md) for details of testing and an example test run.
  
