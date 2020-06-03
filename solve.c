@@ -206,7 +206,6 @@ int** original_num(puzzle_t *p){
         }
         return originals;
 }
-<<<<<<< HEAD
 
 #ifdef TEST
 int main(){
@@ -276,5 +275,3 @@ int main(){
         printf("------------------------------------------------------\n");
 }
 #endif
-=======
->>>>>>> 563b518c9382e1f1224122409e8456da667c4dc1
