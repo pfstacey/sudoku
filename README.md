@@ -11,7 +11,9 @@ ssh -Y username@servername
 ### Create
 
 Create makes a sudoku puzzle and prints it to the user. When the user inputs `./sudoku create` in the termnial, an 9x9 unsolved sudoku puzzle is displayed, with 0's representing blank spaces. It writes the puzzle into a file.
+
 ### Solve
+
 Solves solves a sudoku puzzle. It loads a sudoku puzzle from a file and uses a backtracing funcntion to solve. It then outputs the solved puzzle to the terminal.
 
 ### Graphics
@@ -138,8 +140,8 @@ Solve also implements a `backtrack_optimized` function which takes the puzzle to
 
 
 ### Graphics Implementation
-
-We used 
+ 
+We used the gtk library to run the graphics. The layout is in a 10x9 grid, with a 9x9 section containing text cells that display the board and the last row containing a solve button. Upon pressing the solve button, the text cells are replaced with the solved text.
 
 ### Assumptions
 
