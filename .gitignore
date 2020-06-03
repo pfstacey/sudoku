@@ -1,8 +1,16 @@
 board
+common.a
+create.o
 createtest*
+file.o
+fuzz.sh*
 graphics*
+libcs50-given.a
 puzzle.a
+puzzle.o
 puzzletest*
+set.h
 solved
+solve.o
 solvetest*
 test
