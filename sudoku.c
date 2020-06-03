@@ -34,14 +34,6 @@ int main(int argc, char *argv[])
             }
         }
         else if (strcmp(input,"solve") == 0){
-<<<<<<< HEAD
-            puzzle_t *puzzle = puzzle_load();
-            int ** originals = original_num(puzzle);  //comment these out if needed 
-            backtrack_optimized(puzzle, 0, 0, originals);
-            //backtrack(puzzle,0,0);
-            puzzle_write(puzzle);
-            puzzle_delete(puzzle);
-=======
             // puzzle_t *puzzle = puzzle_load();
             // int ** originals = original_num(puzzle);  //comment these out if needed 
             // backtrack_optimized(puzzle, 0, 0, originals);
@@ -78,7 +70,6 @@ int main(int argc, char *argv[])
                     i = 0;
                 }
             }
->>>>>>> 59763b479c3ca7e155611b08811aa9e1da9a48dc
         }
 
     }
