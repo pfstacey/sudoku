@@ -199,8 +199,11 @@ int** original_num(puzzle_t *p){
         //now iterate through puzzle and check for existing numbers
         for(i = 0; i < 9; i++){
                 for(j = 0; j < 9; j++){
-                    if (puzzle_getValue(p, i, j) != 0){ //if the puzzle has a value there we know it must be permanent
-                            originals[i][j] = -1; //change it in our record to something we can ignore later
+
+		    int val = puzzle_getValue(p, i, j);
+
+                    if (val != 0){ //if the puzzle has a value there we know it must be permanent
+                            originals[i][val - 1] = -1; //change it in our record to something we can ignore later
                     }
                 }
         }

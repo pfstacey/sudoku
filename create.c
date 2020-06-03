@@ -112,12 +112,12 @@ bool valid_num(int num, int r, int c, puzzle_t *p)
 /**************** fill_others() ****************/
 bool fill_others(puzzle_t *p, int r, int c)
 {
-    int start = (rand())%9;
+    int start = (rand())%9; //start with a random value between 0-8
     srand(rand()+(r*9)+c); // For recursion
     int k = 0, puzzleVal = 0;
-    for (k = start; k < start + 9; k++){
-        puzzleVal = (k%9) + 1;
-        if(!valid_num(puzzleVal, r, c, p)){
+    for (k = start; k < start + 9; k++){ 
+        puzzleVal = (k%9) + 1; //Generate possible values between 1-9
+        if(!valid_num(puzzleVal, r, c, p)){ //If it's a valid number, set the cell to this value
             continue;
         }
         puzzle_set(p, r, c, puzzleVal);
@@ -127,14 +127,14 @@ bool fill_others(puzzle_t *p, int r, int c)
         int nextr, nextc;
         get_next_cell(r, c, &nextr, &nextc, p);
 
-            if (nextr == -1 && nextc == -1) {
+            if (nextr == -1 && nextc == -1) { //If the values of nextr/nextc are -1, we have reached the last cell, so return
                 return true;
             }
             else {
-                if (fill_others(p, nextr, nextc)) {
+                if (fill_others(p, nextr, nextc)) { //otherwise we continue recursing on this next cell
                     return true;
                 }
-                puzzle_set(p, r, c, 0);
+                puzzle_set(p, r, c, 0); //If the recursive call returns false, we made a mistake so set this cell to 0;
             }
     }
     return false;
@@ -142,24 +142,24 @@ bool fill_others(puzzle_t *p, int r, int c)
 
 void get_next_cell(int r, int c, int *nextr, int *nextc, puzzle_t *p) {
     int i, j;  // Next cells
-    for (i = r; i < 9; i++) {
+    for (i = r; i < 9; i++) { 
         int begin;
-        if (i == r) {
+        if (i == r) { //start with our current location
             begin = c;
         }
         else {
             begin = 0;
         }
-        for (j = begin; j < 9; j++) {
-            if (puzzle_getValue(p, i, j) == 0) {
+        for (j = begin; j < 9; j++) { //look around for possible emty spaces around our current cell 
+            if (puzzle_getValue(p, i, j) == 0) { //if the next cell is an empty space, we set it's coordinates as nextr, nextc
                 *nextr = i;
                 *nextc = j;
                 return;
             }
         }
     }
-    *nextr = -1;
-    *nextc = -1;
+    *nextr = -1; //otherwise this cell is not an option -> set coordinates to -1
+    *nextc = -1; 
     return;
 }
 

@@ -5,7 +5,6 @@ createtest*
 file.o
 fuzz.sh*
 graphics*
-libcs50-given.a
 puzzle.a
 puzzle.o
 puzzletest*

@@ -66,7 +66,7 @@ test:
 	make whiteboxtest
 
 graphics: 
-	gcc `pkg-config --cflags gtk+-3.0` puzzle.c solve.c create.c -o graphics graphics.c `pkg-config --libs gtk+-3.0`
+	gcc `pkg-config --cflags gtk+-3.0` puzzle.c solve.c libcs50-given.a create.c -o graphics graphics.c `pkg-config --libs gtk+-3.0`
 	./graphics
 
 mem:
