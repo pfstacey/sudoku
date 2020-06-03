@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
                 int ** originals = original_num(puzzle);
                 printf("printing originals\n");
                 for (int i = 0; i < 9; i ++){
-                    printf("%d %d %d %d %d %d %d %d %d %d\n", originals[i][0], originals[i][1], originals[i][2], originals[i][3], 
+                    printf("%d %d %d %d %d %d %d %d %d \n", originals[i][0], originals[i][1], originals[i][2], originals[i][3], 
                     originals[i][4], originals[i][5], originals[i][6], originals[i][7],originals[i][8] );
                 }
                 printf("printing puzzle\n");
@@ -65,21 +65,13 @@ int main(int argc, char *argv[])
                     fp = fopen(file,"r");
                     puzzle_t *puzzle = puzzle_load(fp);
                     
-                    init(puzzle);
-                    int ** originals = original_num(puzzle);  //comment these out if needed 
-                    backtrack_optimized(puzzle, 0, 0, originals);
-                    clean();
-                    free(originals);
-
-<<<<<<< HEAD
+                    //init(puzzle);
                     //int ** originals = original_num(puzzle);  //comment these out if needed 
-                    // backtrack_optimized(puzzle, 0, 0, originals);
-                    // free(originals);
+                    //backtrack_optimized(puzzle, 0, 0, originals);
+                    //clean();
+                    //free(originals);
 
                     backtrack(puzzle,0,0);
-=======
-                    // backtrack(puzzle,0,0);
->>>>>>> 51b9b598d5c32defa099883cec1ffefab0c8c3cf
 
                     printf("\nPuzzle %d: \n", count);
                     puzzle_write(puzzle);
