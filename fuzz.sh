@@ -6,8 +6,10 @@
  
 if [ "$@" -ne "$@" ]
 then
-    echo 'Please enter a number'
+    echo 'Run with command: ./fuzz.sh number'
 else
+    make clean
+    make all
     rm -f board
     echo 'Generating ' $i ' random boards:'
     for (( i=1; i<=$@; i++ ))
