@@ -55,12 +55,14 @@ int main(int argc, char *argv[])
                     fclose(fp);
                     fp = fopen(file,"r");
                     puzzle_t *puzzle = puzzle_load(fp);
+                    
+                    init(puzzle);
+                    int ** originals = original_num(puzzle);  //comment these out if needed 
+                    backtrack_optimized(puzzle, 0, 0, originals);
+                    clean();
+                    free(originals);
 
-                    // int ** originals = original_num(puzzle);  //comment these out if needed 
-                    // backtrack_optimized(puzzle, 0, 0, originals);
-                    // free(originals);
-
-                    backtrack(puzzle,0,0);
+                    // backtrack(puzzle,0,0);
 
                     printf("\nPuzzle %d: \n", count);
                     puzzle_write(puzzle);
