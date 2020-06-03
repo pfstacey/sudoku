@@ -19,7 +19,7 @@ void init(puzzle_t *puzzle){
 
 		sprintf(name, "r%d", i);
 
-		set_insert(all_r_c_m, name, puzzle_getRow(puzzle, i);
+		set_insert(all_r_c_m, name, puzzle_getRow(puzzle, i));
 	}
 
 	for(int i = 0; i < 9; i++){
@@ -27,7 +27,7 @@ void init(puzzle_t *puzzle){
 
 		sprintf(name, "c%d", i);
 
-		set_insert(all_r_c_m, name, puzzle_getCol(puzzle, i);
+		set_insert(all_r_c_m, name, puzzle_getCol(puzzle, i));
 	}
 
 	for(int i = 0; i < 3; i++){
@@ -118,7 +118,7 @@ bool backtrack(puzzle_t *puzzle, int row, int column){
         int puzzleVal = 1;
 
         while(puzzleVal < 10){
-		if(valid_num(puzleVal, row, column, puzzle)){
+		if(valid_num(puzzleVal, row, column, puzzle)){
                         puzzle_set(puzzle, row, column, puzzleVal);
 
                         //recursive step
