@@ -36,7 +36,6 @@ bool puzzle_set(puzzle_t *p, const int row, const int col, const int value);
 //Returns the int at the specified row, col
 const int puzzle_getValue(puzzle_t * p, const int row, const int col);
 
-
 //Returns the specified row
 int * puzzle_getRow(puzzle_t * p, const int row);
 
