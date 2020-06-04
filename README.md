@@ -153,4 +153,9 @@ To compile: `make`
 To test: `make test`
 To use graphics: `make graphics`
 See [TESTING](TESTING.md) for details of testing and an example test run.
+
+### Group Video:
+
+Link to Google Drive with our group's video:
+https://drive.google.com/drive/folders/1SUKEwFg7o5XyGNflRZXaOG7TedWtP0ma?usp=sharing
  
