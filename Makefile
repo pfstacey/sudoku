@@ -5,30 +5,25 @@
 CC = gcc
 MAKE = make
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all
-
-CFLAGS = -Wall -pedantic -std=c11 -ggdb
+LIB = common
+LLIBS = $(LIB)/common.a $(LIB)/libcs50-given.a 
+CFLAGS = -Wall -pedantic -std=c11 -ggdb -I $(LIB)
 PROG = sudoku
-OBJS = sudoku.o puzzle.o create.o solve.o file.o
+OBJS = sudoku.o
 OBJS0 = puzzle.o create.o solve.o file.o
-LIB = common.a
-LLIBS = libcs50-given.a
-
 
 
 # rules
-all: $(PROG) $(LIB) 
+all: $(PROG) 
+	make -C common
 
-$(PROG): $(OBJS) $(CCLIBS) $(LIB) $(LLIBS)
+$(PROG): $(OBJS) $(LLIBS) 
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(LIB): $(OBJS0)
-	ar cr $(LIB) $(OBJS0)
-
-sudoku.o: puzzle.o puzzle.h create.h
-create.o: create.h
-puzzle.o: puzzle.h
-solve.o: solve.h create.h puzzle.h set.h
-file.o: file.h
+create.o: $(LIB)/create.h
+puzzle.o: $(LIB)/puzzle.h
+solve.o: $(LIB)/solve.h $(LIB)/create.h $(LIB)/puzzle.h $(LIB)/set.h
+sudoku.o: $(LIB)/puzzle.h $(LIB)/create.h $(LIB)/solve.h
 
 .PHONY: test graphics clean
 
@@ -37,7 +32,7 @@ test: ./testing.sh
 	cat testing.out
 
 graphics: 
-	gcc `pkg-config --cflags gtk+-3.0` puzzle.c solve.c libcs50-given.a create.c -o graphics graphics.c `pkg-config --libs gtk+-3.0`
+	gcc `pkg-config --cflags gtk+-3.0` $(LIB)/puzzle.c $(LIB)/solve.c $(LIB)/libcs50-given.a $(LIB)/create.c -o graphics graphics.c `pkg-config --libs gtk+-3.0`
 	./graphics
 
 mem:
@@ -48,5 +43,4 @@ clean:
 	rm -f *~ *.o
 	rm -rf *.dSYM
 	rm -f core
-	rm -f $(LIB) *~ *.o
 	rm -f board

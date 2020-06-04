@@ -4,9 +4,9 @@
  */
  
 #include <gtk/gtk.h>
-#include "puzzle.h"
-#include "create.h"
-#include "solve.h"
+#include "common/puzzle.h"
+#include "common/create.h"
+#include "common/solve.h"
 
 GtkWidget *grid;
 puzzle_t *puzzle;

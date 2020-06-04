@@ -332,3 +332,51 @@ void puzzle_delete(puzzle_t *p){
     }
 }
 
+#ifdef TEST
+int main(void){
+    printf("---------------------------------------------------\n");
+    printf("              Testing the puzzle struct...\n");
+    printf("---------------------------------------------------\n");
+    puzzle_t * sally2 = puzzle_new();
+    puzzle_set(sally2, 0, 0, 1);
+    puzzle_set(sally2, 1, 1, 2);
+    puzzle_set(sally2, 2, 2, 3);
+
+    printf("Writing out puzzle...\n");
+    puzzle_write(sally2);
+    printf("\n");
+
+    printf("Writing out row 0...\n");
+    int * row = puzzle_getRow(sally2, 0);
+    for(int i = 0; i < 9; i++){
+        printf("%d ", row[i]);
+    }
+    printf("\n");
+
+    printf("Writing out column 0...\n");
+    int * col = puzzle_getCol(sally2, 0);
+    for(int i = 0; i < 9; i++){
+        printf("%d ", col[i]);
+        printf("\n");
+    }
+    printf("\n");
+
+    printf("Writing out minigrid 0...\n");
+    int * minigrid = puzzle_getMiniGrid(sally2, 0, 0);
+    for(int i = 0; i < 9; i++){
+        if(i % 3 == 0){
+            printf("\n");
+        }
+        printf("%d ", col[i]);
+    }
+    printf("\n");
+
+    printf("Cleaning up...\n");
+    puzzle_delete(sally2);
+    free(row);
+    free(col);
+    free(minigrid);
+    printf("---------------------------------------------------\n");
+    return 0;
+}
+#endif
