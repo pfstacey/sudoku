@@ -14,11 +14,13 @@ else
     echo 'Generating ' $i ' random boards:'
     for (( i=1; i<=$@; i++ ))
     do 
+        sleep 1
         ./sudoku create > hold
-        echo 'Puzzle' $i ':'
+        echo 'Puzzle' $i ' original:'
         cat hold
         echo $'\n'
         cat hold | tee -a board >/dev/null
+        rm hold
     done
     echo $'Solving...\n'
     cat board | ./sudoku solve
