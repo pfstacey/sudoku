@@ -36,7 +36,6 @@ bool puzzle_set(puzzle_t *p, const int row, const int col, const int value);
 //Returns the int at the specified row, col
 const int puzzle_getValue(puzzle_t * p, const int row, const int col);
 
-
 //Returns the specified row
 int * puzzle_getRow(puzzle_t * p, const int row);
 
@@ -154,4 +153,9 @@ To compile: `make`
 To test: `make test`
 To use graphics: `make graphics`
 See [TESTING](TESTING.md) for details of testing and an example test run.
+
+### Group Video:
+
+Link to Google Drive with our group's video:
+https://drive.google.com/drive/folders/1SUKEwFg7o5XyGNflRZXaOG7TedWtP0ma?usp=sharing
  
