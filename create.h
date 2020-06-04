@@ -105,8 +105,8 @@ bool fill_others(puzzle_t *p, int row, int column);
  */
 void remove_values(puzzle_t *p, int count);
 
-/**************** ger_next_cell() ****************/
-/* removes a set number of values in the sudoku grid
+/**************** get_next_cell() ****************/
+/* Gets the coordinates for the next empty cell to work on
  *
  * Caller provides:
  *   row and column, pointer to next row and column, valid pointer to puzzle

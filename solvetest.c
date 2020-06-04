@@ -17,6 +17,16 @@
  */
 
 int main(){
+	puzzle_t *t = puzzle_new();
+
+	puzzle_write(t);
+
+	backtrack(t, 0, 0);
+
+	puzzle_write(t);
+
+	puzzle_delete(t);
+
 	puzzle_t *test = puzzle_new();
 
 	puzzle_set(test, 0, 0, 1);
@@ -58,7 +68,11 @@ int main(){
 
 	puzzle_write(test);
 
-	backtrack(test, 0, 0);
+	init(test);
+	int ** originals = original_num(test);  //comment these out if needed 
+	backtrack_optimized(test, 0, 0, originals);
+	clean();
+	free(originals);
 
 	puzzle_write(test);
 
