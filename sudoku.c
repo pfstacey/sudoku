@@ -48,8 +48,8 @@ int main(int argc, char *argv[])
                     count++;
                     fclose(fp);
                     fp = fopen(file,"r");
+
                     puzzle_t *puzzle = puzzle_load(fp);
-                    
                     init(puzzle);
                     int ** originals = original_num(puzzle); 
                     backtrack_optimized(puzzle, 0, 0, originals);
